@@ -1,8 +1,8 @@
 #content {
-  background: transparent;
+  background: white;
   height: 400px;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-  padding-top: 140px;
+  padding: 100px;
   color: black; }

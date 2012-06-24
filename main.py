@@ -54,6 +54,10 @@ class MainHandler(webapp.RequestHandler):
     nadie = Vote.get_nadie_votes()
     self.response.out.write(template.render('templates/main.html', locals()))
 
+class ThanksAgainHandler(webapp.RequestHandler):
+  def get(self):
+    self.response.out.write(template.render('templates/thanks.html', locals()))
+
 class JsonHandler(webapp.RequestHandler):
   def get(self):
     amlo = Vote.get_amlo_votes()
@@ -96,21 +100,26 @@ class OAuthCallbackHandler(webapp.RequestHandler):
       api = API(auth)
       api_user = api.verify_credentials()
 
-      # Create Vote, TODO Find_Or_Create
-      voteObject = Vote.all().filter("nickname",api_user.screen_name).fetch(1)
-      if len(voteObject) == 1:
-        voteObject = voteObject[0]
-        voteObject.vote = vote
-        voteObject.put()
-      else: 
-        voteObject = Vote(vote=vote, nickname=api_user.screen_name, ip=self.request.remote_addr)
-        voteObject.put()
-
       amlo = Vote.get_amlo_votes()
       jvm = Vote.get_jvm_votes()
       epn  = Vote.get_epn_votes()
       quadri = Vote.get_quadri_votes()
       nadie = Vote.get_nadie_votes()
+
+      # Create Vote, TODO Find_Or_Create
+      voteObject = Vote.all().filter("nickname",api_user.screen_name).fetch(1)
+      if len(voteObject) == 1:
+        try:
+          message = "#HashtagElecciones Mexico 2012: http://hashtagelecciones.appspot.com, van: Jvm "+str(jvm)+",Quadri "+str(quadri)+",EPN "+str(epn)+",AMLO "+str(amlo)+",Nulo:"+ str(nadie)
+          api.update_status(message)
+        except:
+          logging.error("Failed to update Status on voteObject == 1")
+        self.redirect("/thanks-again")
+        return
+      else: 
+        voteObject = Vote(vote=vote, nickname=api_user.screen_name, ip=self.request.remote_addr)
+        voteObject.put()
+
       try:
         message = "Acabo de votar en #HashtagElecciones Mexico 2012: http://hashtagelecciones.appspot.com, van: Jvm "+str(jvm)+",Quadri "+str(quadri)+",EPN "+str(epn)+",AMLO "+str(amlo)+",Nulo:"+ str(nadie)
         logging.error("Message" + message)
@@ -121,6 +130,7 @@ class OAuthCallbackHandler(webapp.RequestHandler):
 
 app = webapp.WSGIApplication([
     ('/', MainHandler),
+    ('/thanks-again', ThanksAgainHandler),
     ('/json', JsonHandler),
     ('/vote/(.*)', VoteHandler),
     ('/oauth_callback', OAuthCallbackHandler),
