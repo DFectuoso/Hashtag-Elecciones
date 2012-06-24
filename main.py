@@ -1,5 +1,6 @@
 from google.appengine.ext import webapp, db
 from google.appengine.ext.webapp import util, template
+from google.appengine.api import memcache
 
 import urlparse
 import logging
@@ -22,23 +23,53 @@ class Vote(db.Model):
 
   @staticmethod
   def get_amlo_votes():
-    return Vote.all().filter("vote", "amlo").count(100000)
-
+    val = memcache.get("v_amlo")
+    if val is not None:
+      return val
+    else:
+      val = Vote.all().filter("vote", "amlo").count(100000)
+      memcache.add("v_amlo", val, 30)
+      return val
+ 
   @staticmethod
   def get_jvm_votes():
-    return Vote.all().filter("vote", "jvm").count(100000)
+    val = memcache.get("v_jvm")
+    if val is not None:
+      return val
+    else:
+      val = Vote.all().filter("vote", "jvm").count(100000)
+      memcache.add("v_jvm", val, 30)
+      return val
 
   @staticmethod
   def get_quadri_votes():
-    return Vote.all().filter("vote", "quadri").count(100000)
+    val = memcache.get("v_quadri")
+    if val is not None:
+      return val
+    else:
+      val = Vote.all().filter("vote", "quadri").count(100000)
+      memcache.add("v_quadri", val, 30)
+      return val
 
   @staticmethod
   def get_epn_votes():
-    return Vote.all().filter("vote", "epn").count(100000)
+    val = memcache.get("v_epn")
+    if val is not None:
+      return val
+    else:
+      val = Vote.all().filter("vote", "epn").count(100000)
+      memcache.add("v_epn", val, 30)
+      return val
 
   @staticmethod
   def get_nadie_votes():
-    return Vote.all().filter("vote", "nadie").count(100000)
+    val = memcache.get("v_nadie")
+    if val is not None:
+      return val
+    else:
+      val = Vote.all().filter("vote", "nadie").count(100000)
+      memcache.add("v_nadie", val, 30)
+      return val
 
 class AccessRequest(db.Model):
   request_token_key    = db.StringProperty(required=True)
@@ -111,7 +142,7 @@ class OAuthCallbackHandler(webapp.RequestHandler):
       if len(voteObject) == 1:
         try:
           message = "#HashtagElecciones Mexico 2012: http://hashtagelecciones.appspot.com, van: Jvm "+str(jvm)+",Quadri "+str(quadri)+",EPN "+str(epn)+",AMLO "+str(amlo)+",Nulo:"+ str(nadie)
-          api.update_status(message)
+          #api.update_status(message)
         except:
           logging.error("Failed to update Status on voteObject == 1")
         self.redirect("/thanks-again")
@@ -119,11 +150,12 @@ class OAuthCallbackHandler(webapp.RequestHandler):
       else: 
         voteObject = Vote(vote=vote, nickname=api_user.screen_name, ip=self.request.remote_addr)
         voteObject.put()
+        memcache.delete("v_"+vote)
 
       try:
         message = "Acabo de votar en #HashtagElecciones Mexico 2012: http://hashtagelecciones.appspot.com, van: Jvm "+str(jvm)+",Quadri "+str(quadri)+",EPN "+str(epn)+",AMLO "+str(amlo)+",Nulo:"+ str(nadie)
         logging.error("Message" + message)
-        api.update_status(message)
+        #api.update_status(message)
       except:
         logging.error("Failed to update Status on OAuthCallback")
       self.redirect("/")
