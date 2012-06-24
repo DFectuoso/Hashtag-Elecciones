@@ -61,6 +61,7 @@ class JsonHandler(webapp.RequestHandler):
     epn  = Vote.get_epn_votes()
     quadri = Vote.get_quadri_votes()
     nadie = Vote.get_nadie_votes()
+    self.response.headers['Content-Type'] = "application/json"
     self.response.out.write(simplejson.dumps({'epn':epn,'amlo':amlo,'jvm':jvm,'quadri':quadri,'nadie':nadie}))
 
 class VoteHandler(webapp.RequestHandler):
