@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="/static/sass/support.css">
+{% endblock %}
+{% block content %}
+  <div id="main">
+    <div class="left">
+      <img src="/static/img/twitter-bird-white-on-blue.png"/>
+    </div>
+    <div class="right">
+      <h3>Estas a punto de votar por: <strong>{{vote}}</strong></h3>
+      <p>
+        Twitter - Necesitamos hacer log in con twitter para garantizar que sea 1 voto por cuenta.
+      </p>
+      <p>
+        Al votar, se tuiteara desde tu cuenta el sigueinte mensaje:
+      </p>
+      <p class="quote">
+        "Acabo de votar en #HashtagElecciones Mexico 2012: http://hashtagelecciones.appspot.com, van: Jvm {{jvm}},Quadri{{quadri}},EPN:{{epn}},AMLO:{{amlo}},Nulo:{{nadie}}"
+      </p>
+      <br/>
+      <p>
+        Nunca mas usaremos tu cuenta para nada mas.
+      </p>
+    </div>
+  </div>
+  <div id="action">
+    <span>
+      <form method="POST">
+        <input type="submit" value="Votar con tu cuenta de twitter"/>
+      </form>
+    </span>
+  </div>
+
+{% endblock %}

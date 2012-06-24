@@ -1,0 +1,87 @@
+.candidato {
+  font-weight: 800;
+  font-size: 3em;
+  letter-spacing: -0.1em;
+  padding: 10px 0; }
+  .candidato .candidato-name {
+    min-width: 300px;
+    display: inline-block; }
+  .candidato a {
+    padding-left: 40px; }
+
+#action {
+  padding: 40px;
+  text-align: center; }
+  #action span {
+    display: inline-block;
+    text-align: center; }
+
+#main, #action {
+  zoom: 1; }
+  #main:before, #main:after, #action:before, #action:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden; }
+  #main:after, #action:after {
+    clear: both; }
+  #main > div, #action > div {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding: 1em; }
+    #main > div.left, #action > div.left {
+      float: left;
+      width: 20%;
+      text-align: right;
+      padding-right: 2em; }
+      #main > div.left img, #action > div.left img {
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        width: 120px; }
+    #main > div.right, #action > div.right {
+      float: right;
+      width: 80%;
+      padding-right: 2em; }
+
+h3 {
+  color: #82969e;
+  font-size: 1.3em;
+  font-weight: 400; }
+
+blockquote {
+  margin: 0.75em 0; }
+
+p.quote {
+  font-family: "Glegoo", monospace;
+  margin-bottom: 0; }
+
+p.note {
+  color: #82969e;
+  font-size: 0.9em;
+  margin-top: 0.3em; }
+
+#action {
+  background: #f5f5f5 url(/static/img/granite.jpg) repeat scroll 0 0;
+  border-top: 1px solid #dddddd; }
+
+#supporters {
+  padding-top: 0.2em; }
+  #supporters h2 {
+    font-weight: 800;
+    margin-bottom: 0; }
+    #supporters h2 span {
+      font-weight: 300;
+      font-size: 0.45em;
+      color: #222222;
+      font-style: italic; }
+  #supporters p {
+    text-transform: uppercase;
+    font-size: 0.9em;
+    margin-bottom: 0; }
+
+form {
+  display: block;
+  float: left;
+  margin-right: 2em; }

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="/static/sass/support.css">
+{% endblock %}
+{% block content %}
+  <div id="main">
+    <h3 style="text-align:center; padding:20px 0 0 0;">Hemos visto muchas encuestas, es hora de ver lo que piensa twitter.</h3>
+    <div class="right">
+      <div class="candidato">
+        <span class="candidato-name">JVM</span>   {{jvm}}   <a href="/vote/jvm">Votar</a>
+      </div>
+      <div class="candidato">
+        <span class="candidato-name">AMLO</span>   {{amlo}}   <a href="/vote/amlo">Votar</a>
+      </div>
+      <div class="candidato">
+        <span class="candidato-name">QUADRI</span>   {{quadri}}   <a href="/vote/quadri">Votar</a>
+      </div>
+      <div class="candidato">
+        <span class="candidato-name">EPN</span> {{epn}}   <a href="/vote/epn">Votar</a>
+      </div>
+      <div class="candidato">
+        <span class="candidato-name">Nadie</span> {{nadie}}   <a href="/vote/nadie">Votar</a>
+      </div>
+    </div>
+  </div>
+  <div id="action">
+    Compartelo con tus amigos!</br></br>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-hashtags="HashtagElecciones">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </div>
+
+
+<script>
+function trackSupportClick(){
+  console.log("Tracked")
+  _gaq.push(['_trackEvent', 'Support button', 'click', '{{massive_rt.username}}']);
+}
+</script>
+{% endblock %}

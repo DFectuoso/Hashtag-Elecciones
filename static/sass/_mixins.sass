@@ -1,0 +1,96 @@
+// Layout mixins
+
+@mixin centered($width: 960px)
+  margin-left: auto
+  margin-right: auto
+  width: $width
+
+  
+@mixin clearfix
+  zoom: 1
+  &:before, &:after
+    content: "\0020"
+    display: block
+    height: 0
+    overflow: hidden
+  &:after
+    clear: both
+
+
+@mixin intuitive-box
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+
+  
+@mixin layout($columns, $width, $padding)
+  width: $width/$columns - ($padding)
+  padding-right: $padding 
+
+  
+@mixin horizontal-list($margin: 0)
+  list-style: none
+  display: inline
+  @include clearfix
+  li
+    display: inline
+    margin-left: $margin
+    margin-right: $margin
+
+
+@mixin main-content($width: 960px)
+  @include centered($width)
+  @include clearfix
+  background: $white
+  padding: 30px
+
+      
+//Stylishness mixins
+
+@mixin round-corners($radius: 5px)
+  -webkit-border-radius: $radius
+  -moz-border-radius: $radius
+  -khtml-border-radius: $radius
+  border-radius: $radius
+
+    
+@mixin box-shadow($value: 0px 1px 4px rgba(0,0,0,0.25))
+  -moz-box-shadow: $value  
+  -webkit-box-shadow: $value
+  box-shadow: $value
+
+
+//Button mixins
+
+@mixin button($color: $brand)
+  display: block
+  text-decoration: none
+  color: $white
+  text-align: center
+  padding: 0.75em 1.5em
+  text-shadow: 0px -1px 1px rgba(0,0,0,0.35)
+  font-weight: 800
+  @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.5))
+  @include round-corners
+  @include gradient(lighten($color,5), $color, darken($color,5))
+  &:hover
+    @include gradient($color, darken($color,5), darken($color,10))
+    text-decoration: none
+    cursor: pointer
+
+
+// Gradients
+
+@mixin gradient($top: $brand, $mid: darken($brand,3), $bottom: darken($brand, 7))
+  background: $top
+  border: 1px solid $bottom
+  background-image: linear-gradient(bottom, $bottom 17%, $mid 59%, $top 80%)
+  background-image: -o-linear-gradient(bottom, $bottom 17%, $mid 59%, $top 80%)
+  background-image: -moz-linear-gradient(bottom, $bottom 17%, $mid 59%, $top 80%)
+  background-image: -webkit-linear-gradient(bottom, $bottom 17%, $mid 59%, $top 80%)
+  background-image: -ms-linear-gradient(bottom, $bottom 17%, $mid 59%, $top 80%)
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.17, $bottom), color-stop(0.59, $mid), color-stop(0.8, $top) )
+  /* For Internet Explorer 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$top}, endColorstr=#{$bottom})
+  /* For Internet Explorer 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$top}, endColorstr=#{$bottom})"

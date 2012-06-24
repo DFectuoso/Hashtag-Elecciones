@@ -1,0 +1,22 @@
+#header {
+  display: none; }
+
+#content {
+  position: relative;
+  background: transparent;
+  height: 600px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding-top: 240px;
+  text-align: center;
+  color: white;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box; }
+  #content img {
+    float: left;
+    margin-right: 2em; }
+  #content blockquote {
+    padding-top: 0.3em;
+    text-shadow: 0 0 5px black; }

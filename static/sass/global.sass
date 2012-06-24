@@ -1,0 +1,97 @@
+@import "reset", "palette", "mixins"
+
+html
+  background: url(http://farm7.staticflickr.com/6188/6098360112_a5bea9a91d_b.jpg) no-repeat center center fixed
+  -webkit-background-size: cover
+  -moz-background-size: cover
+  -o-background-size: cover
+  background-size: cover
+	
+body
+  font-family: "Open Sans", sans-serif
+  font-weight: 300
+  font-size: 16px
+  background: transparent
+  // background: transparent url(http://subtlepatterns.com/patterns/paper.png) repeat scroll 0 0
+  
+h1
+  margin-bottom: 0.5em
+
+h2
+  font-size: 2em
+  letter-spacing: -0.05em
+  margin-bottom: 0.5em
+  color: $dark_brand
+  text-shadow: 0 1px 0 #FFF
+  
+h3
+  margin-bottom: 0.5em
+
+p
+  margin-bottom: 1em
+  line-height: 1.4
+
+a
+  color: $dark_brand
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+    
+blockquote
+  font-family: "Glegoo", monospace
+  font-size: 2em
+  line-height: 1.3
+
+strong
+  font-weight: 700
+
+label
+  display: block
+  margin-top: 0.25em
+  margin-bottom: 0.25em
+
+input
+  font-family: "Open Sans", sans-serif
+  font-size: 16px
+  font-weight: 300
+  
+input[type="text"], input[type="password"], textarea
+  padding: 0.25em 0.5em
+
+input[type="submit"]
+  @include button
+
+#header
+  margin-top: 1em
+  margin-bottom: 1em
+  @include centered
+
+    
+#content
+  @include intuitive-box
+  @include centered
+  @include box-shadow(0 0 10px rgba(0,0,0,0.5))
+  background: #FFF
+  
+  #marketing
+    @include clearfix
+    > div
+      @include intuitive-box
+      width: 33.3%
+      float: left
+      padding: 1em
+      &:first-child
+        padding-left: 0
+      &:last-child
+        padding-right: 0
+    
+#footer
+  margin-top: 1em 
+  background: transparentize($dark_brand,0.25)
+  padding: 0.75em 1.5em
+  color: #FFF
+  @include box-shadow(0 0 10px rgba(0,0,0,0.5))
+  @include intuitive-box
+  @include centered
+  a
+    color: $brand
