@@ -28,7 +28,7 @@ class Vote(db.Model):
       return val
     else:
       val = Vote.all().filter("vote", "amlo").count(100000)
-      memcache.add("v_amlo", val, 30)
+      memcache.add("v_amlo", val, 10)
       return val
  
   @staticmethod
@@ -38,7 +38,7 @@ class Vote(db.Model):
       return val
     else:
       val = Vote.all().filter("vote", "jvm").count(100000)
-      memcache.add("v_jvm", val, 30)
+      memcache.add("v_jvm", val, 10)
       return val
 
   @staticmethod
@@ -48,7 +48,7 @@ class Vote(db.Model):
       return val
     else:
       val = Vote.all().filter("vote", "quadri").count(100000)
-      memcache.add("v_quadri", val, 30)
+      memcache.add("v_quadri", val, 10)
       return val
 
   @staticmethod
@@ -58,7 +58,7 @@ class Vote(db.Model):
       return val
     else:
       val = Vote.all().filter("vote", "epn").count(100000)
-      memcache.add("v_epn", val, 30)
+      memcache.add("v_epn", val, 10)
       return val
 
   @staticmethod
@@ -68,7 +68,7 @@ class Vote(db.Model):
       return val
     else:
       val = Vote.all().filter("vote", "nadie").count(100000)
-      memcache.add("v_nadie", val, 30)
+      memcache.add("v_nadie", val, 10)
       return val
 
 class AccessRequest(db.Model):
@@ -150,7 +150,7 @@ class OAuthCallbackHandler(webapp.RequestHandler):
       else: 
         voteObject = Vote(vote=vote, nickname=api_user.screen_name, ip=self.request.remote_addr)
         voteObject.put()
-        memcache.delete("v_"+vote)
+        #memcache.delete("v_"+vote)
 
       try:
         message = "Acabo de votar en #HashtagElecciones Mexico 2012: http://hashtagelecciones.appspot.com, van: Jvm "+str(jvm)+",Quadri "+str(quadri)+",EPN "+str(epn)+",AMLO "+str(amlo)+",Nulo:"+ str(nadie)
