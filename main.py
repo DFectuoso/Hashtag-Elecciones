@@ -142,7 +142,7 @@ class OAuthCallbackHandler(webapp.RequestHandler):
       if len(voteObject) == 1:
         try:
           message = "#HashtagElecciones Mexico 2012: http://hashtagelecciones.appspot.com, van: Jvm "+str(jvm)+",Quadri "+str(quadri)+",EPN "+str(epn)+",AMLO "+str(amlo)+",Nulo:"+ str(nadie)
-          #api.update_status(message)
+          api.update_status(message)
         except:
           logging.error("Failed to update Status on voteObject == 1")
         self.redirect("/thanks-again")
@@ -155,7 +155,7 @@ class OAuthCallbackHandler(webapp.RequestHandler):
       try:
         message = "Acabo de votar en #HashtagElecciones Mexico 2012: http://hashtagelecciones.appspot.com, van: Jvm "+str(jvm)+",Quadri "+str(quadri)+",EPN "+str(epn)+",AMLO "+str(amlo)+",Nulo:"+ str(nadie)
         logging.error("Message" + message)
-        #api.update_status(message)
+        api.update_status(message)
       except:
         logging.error("Failed to update Status on OAuthCallback")
       self.redirect("/")
